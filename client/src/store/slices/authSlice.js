@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { User } from "../../../../server/models/userModel";
 import { isAuthenticated } from "../../../../server/middlewares/authMiddleware";
-import { register } from "../../../../server/controllers/authController";
+import { getUser, register } from "../../../../server/controllers/authController";
 
 const authSlice = createSlice({
     name:"auth",
@@ -73,6 +73,51 @@ const authSlice = createSlice({
             state.error = action.payload;
             state.message = null;
         },
+        getUserRequest(state){
+            state.loading = true;
+            state.error = null;
+            state.message = null;
+        },
+        getUserSuccess(state, action){
+            state.loading = false;
+            state.user = action.payload.user;
+            state.isAuthenticated = true;
+        },
+        getUserFailed(state){
+            state.loading = false;
+            state.user = null;
+            state.isAuthenticated = false;
+        },
+
+        forgotPasswordRequest(state){
+            state.loading = true;
+            state.error = null;
+            state.message = null;
+        },
+        forgotPasswordSuccess(state, action){
+            state.loading = false;
+            state.message = action.payload.message;
+        },
+        forgotPasswordFailed(state){
+            state.loading = false;
+            state.error = action.payload;
+        },
+        
+        resetPasswordRequest(state){
+            state.loading = true;
+            state.error = null;
+            state.message = null;
+        },
+        resetPasswordSuccess(state, action){
+            state.loading = false;
+            state.message = action.payload.message;
+            state.user = action.payload.user;
+            state.isAuthenticated = true;
+        },
+        resetPasswordFailed(state){
+            state.loading = false;
+            state.error = action.payload;
+        },
 
         resetAuthSlice(state){
             state.error = null;
@@ -97,7 +142,7 @@ export const  register = (data) => async(dispatch) =>{
             "content-Type": "application/json",
         },
     })
-    .then(res=>{
+    .then((res)=>{
         dispatch(authSlice.actions.registerSuccess(res.data))
     })
     .catch((error) => {
@@ -114,7 +159,7 @@ export const  otpVerification = (email, otp) => async(dispatch) =>{
             "content-Type": "application/json",
         },
     })
-    .then(res=>{
+    .then((res)=>{
         dispatch(authSlice.actions.otpVerificationSuccess(res.data));
     })
     .catch((error) => {
@@ -133,7 +178,7 @@ export const  login = (data) => async(dispatch) =>{
             "content-Type": "application/json",
         },
     })
-    .then(res=>{
+    .then((res)=>{
         dispatch(authSlice.actions.loginSuccess(res.data));
     })
     .catch((error) => {
@@ -147,12 +192,44 @@ export const  logout = () => async(dispatch) =>{
     .get("http://localhost:4000/api/v1/auth/logout", {
         withCredentials: true,
     })
-    .then(res=>{
+    .then((res)=>{
         dispatch(authSlice.actions.logoutSuccess(res.data.message));
         dispatch(authSlice.actions.resetAuthSlice());
     })
     .catch((error) => {
         dispatch(authSlice.actions.logoutFailed(error.response.data.message));
+    });
+};
+
+export const  getUser = () => async(dispatch) =>{
+    dispatch(authSlice.actions.getUserRequest());
+    await axios
+    .get("http://localhost:4000/api/v1/auth/me", {
+        withCredentials: true,
+    })
+    .then((res)=>{
+        dispatch(authSlice.actions.getUserSuccess(res.data.message));
+    })
+    .catch((error) => {
+        dispatch(authSlice.actions.getUserFailed(error.response.data.message));
+    });
+};
+
+export const  forgotPassword = (email) => async(dispatch) =>{
+    dispatch(authSlice.actions.forgotPasswordRequest());
+    await axios
+    .post("http://localhost:4000/api/v1/auth/password/forgot", {email}, 
+        {
+        withCredentials: true,
+        headers: {
+            "content-Type": "application/json",
+        },
+    })
+    .then((res)=>{
+        dispatch(authSlice.actions.forgotPasswordSuccess(res.data,message));
+    })
+    .catch((error) => {
+        dispatch(authSlice.actions.forgotPasswordFailed(error.response.data.message));
     });
 };
 
