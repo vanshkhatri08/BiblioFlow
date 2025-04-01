@@ -27,6 +27,10 @@ const Login = () => {
   };
 
   useEffect(() => {
+    // if(message){
+    //   toast.success(message);
+    //   dispatch(resetAuthSlice());
+    // }
     if (error) {
       toast.error(error);
       dispatch(resetAuthSlice());
@@ -111,7 +115,7 @@ const Login = () => {
                 </div>
               </div>
               <Link
-                to={"/password/forgot"}
+                to={"/forgot-password"}
                 className="font-semibold text-black mb-12"
               >
                 Forgot Password?
