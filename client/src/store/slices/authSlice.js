@@ -1,8 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { User } from "../../../../server/models/userModel";
-import { isAuthenticated } from "../../../../server/middlewares/authMiddleware";
-import { getUser, register } from "../../../../server/controllers/authController";
 
 const authSlice = createSlice({
     name:"auth",
