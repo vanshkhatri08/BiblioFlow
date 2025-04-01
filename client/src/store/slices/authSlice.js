@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+<<<<<<< HEAD
 
 const BASE_API_URL = "http://localhost:5000/api/v1";
+=======
+>>>>>>> e438ebd2bbb360a6da3f818d76aa7dcb2f501de6
 
 const authSlice = createSlice({
     name:"auth",
