@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../assets/black-logo.png";
-import logo_with_title from "../assets/logo-with-title.png";
+import whiteLogo from "../assets/white-logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Navigate, Link } from "react-router-dom";
 import { resetAuthSlice, registerUser } from "../store/slices/authSlice";
@@ -52,10 +52,11 @@ const Register = () => {
     p-8 rounded-tr-[80px] rounded-br-[80px]
     ">
     <div className="text-center h-[376px]">
-      <div className="flex justify-center mb-12" >
-        <img src={logo_with_title} alt="logo"
+      <div className="flex justify-center " >
+        <img src={whiteLogo} alt="logo"
         className="mb-12 h-44w-quto" />
       </div>
+      <h2 className="text-gray-300 mb-12 text-3xl"> Biblio Flow </h2>
       <p className="text-gray-300 mb-12"> Already have  Account? Sign in Now </p>
         <Link to={"/login"} className="border-2 rounded-lg font-semibold border-white py-2 px-8 hover:bg-white
         hover:text-black transition"
