@@ -1,7 +1,7 @@
 import { generateverificationOtpEmailTemplate } from "./emailTemplates.js";
 import { sendEmail } from "./sendEmail.js";
 
-export async function sendVerificationCode(sendVerificationCode, email, res){
+export async function sendVerificationCode(verificationCode, email, res){
     try {
         const message = generateverificationOtpEmailTemplate(verificationCode);
         sendEmail({
@@ -10,7 +10,7 @@ export async function sendVerificationCode(sendVerificationCode, email, res){
             message,
         });
         return res.status(200).json({
-            success: false,
+            success: true,
             message: "Verification code sent successfully.",
         });
     } catch (error) {
