@@ -63,8 +63,8 @@ useEffect(() =>{
             <img src={bookIcon} alt="icon" />
             <span>Books</span>
           </button>
-          {/* { isAuthenticated && user?.role === "admin" && (
-              <> */}
+          { isAuthenticated && user?.role === "admin" && (
+              <>
                 <button className="w-full py-2 font-medium 
                 bg-transparent rounded-md hover:cursor-pointer 
                 flex items-center space-x-2" 
@@ -92,8 +92,8 @@ useEffect(() =>{
                   <RiAdminFill className="w-6 h-6"/> 
                   <span> Add New Admin</span>
                 </button>
-              {/* </>
-            )} */}
+              </>
+            )}
           {
             isAuthenticated && user?.role === "User" && (
               <>
@@ -110,9 +110,9 @@ useEffect(() =>{
           <button className="w-full py-2 font-medium 
                 bg-transparent rounded-md hover:cursor-pointer 
                 flex items-center space-x-2" 
-                // onClick= {() => setSelectedComponent("My Borrowed Books")}
+                onClick= {() => dispatch(toggleSettingPopup())}
                 >
-                  <img src={settingIcon} alt="icon" />
+                  <img src={settingIcon} alt="icon" />{" "}
                   <span>Update Credentials</span>
                 </button>
         </nav>
