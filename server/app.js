@@ -2,7 +2,7 @@ import express from "express";
 import { config } from "dotenv"
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import { connectDB } from "./database/db.js";
+import connectDB from "./database/db.js";
 import { errorMiddleware } from "./middlewares/errormiddlewares.js";
 // import authRouter from "./routes/authRouter.js";
 import authRouter from "./routes/authRouter.js";
@@ -15,7 +15,7 @@ import { removeUnverifiedAccounts } from "./services/removeUnverifiedAccounts.js
 
 export const app = express();
 
-config({ path :"./config/config.env" });
+config();
 
 app.use(cors({
     origin: [process.env.FRONTEND_URL],
