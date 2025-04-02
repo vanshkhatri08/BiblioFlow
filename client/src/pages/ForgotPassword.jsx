@@ -23,10 +23,10 @@ const ForgotPassword = () => {
   };
 
   useEffect(() => {
-    // if (message) {
-    //   toast.success(message);
-    //   navigate("/reset-password");
-    // }
+     if (message) {
+       toast.success(message);
+      navigate("/reset-password");
+     }
     if (error) {
       toast.error(error);
       dispatch(resetAuthSlice());
@@ -78,7 +78,7 @@ const ForgotPassword = () => {
             <div className="mb-4">
               <input type="email" 
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setemail(e.target.value)}
                 placeholder="Email"
                 className="w-full px-4 py-3 border-black rounded-md focus:outline-none"
               />
