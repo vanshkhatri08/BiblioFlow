@@ -1,4 +1,4 @@
-import  { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -11,7 +11,7 @@ const userSlice = createSlice({
     reducers: {
         fetchUserRequest(state) {
             state.loading = true;
-            },
+        },
         fetchAllUserSuccess(state, action) {
             state.loading = false;
             state.user = action.payload;
@@ -35,31 +35,29 @@ const userSlice = createSlice({
 
 export const fetchAllUsers = () => async (dispatch) => {
     dispatch(userSlice.actions.fetchUserRequest());
-    await axios.get('http://localhost:4000/api/users', {withCredentials : true}).then(res =>{
+    try {
+        const res = await axios.get('http://localhost:4000/api/users', {withCredentials: true});
+        dispatch(userSlice.actions.fetchAllUserSuccess(res.data));
+    } catch (err) {
         dispatch(userSlice.actions.fetchAllUserFailed(err.response.data.message));
-    })
-    .catch((err) => {
-        dispatch(userSlice.actions.fetchAllUserFailed(err.response.data.message);
-    });
-
+    }
 };
 
 export const addNewAdmin = (data) => async (dispatch) => {
     dispatch(userSlice.actions.addNewAdminRequest());
-    await axios.post("https://localhost:4000/api/v1/user/add/new-admin", data, {
-        withCredentials : true,
-        headers: {
-            "Content-Type": "application/json",
-        },
-    }).then((res) => {
+    try {
+        const res = await axios.post("http://localhost:4000/api/v1/user/add/new-admin", data, {
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
         dispatch(userSlice.actions.addNewAdminSuccess());
         toast.success(res.data.message);
-    })
-    .catch((err) => {
-        userSlice.actions.addNewAdminFailed();
+    } catch (err) {
+        dispatch(userSlice.actions.addNewAdminFailed());
         toast.error(err.response.data.message);
-    });
-
+    }
 };
 
 export default userSlice.reducer;
