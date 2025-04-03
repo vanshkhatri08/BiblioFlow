@@ -12,10 +12,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, resetAuthSlice } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
 import { BookAIcon, UsersIcon } from "lucide-react";
-import { toggleAddNewAdminPopup } from "../store/slices/popUpSlice";
+import { toggleAddNewAdminPopup, toggleSettingPopup	 } from "../store/slices/popUpSlice";
+import AddNewAdmin from "../components/AddNewAdmin";
+import SettingPopup from "../components/SettingPopup";
 
 const SideBar = ({ isSidebarOpen, setIsSidebarOpen, setSelectedComponent }) => {
 const dispatch = useDispatch();
+const {addNewAdminPopup, settingPopup} = useSelector(
+  state => state.popUp
+);
 const {loading, error, message, user, isAuthenticated} = 
 useSelector(
   state => state.auth);
@@ -128,7 +133,9 @@ useEffect(() =>{
           setIsSidebarOpen(!isSidebarOpen)} className="h-fit 
           w-fit absolute top-0 right-4 mt-4 bloack md:hidden"/>
     </aside>
-    </>
+    {addNewAdminPopup && <AddNewAdmin />}
+    {settingPopup && <SettingPopup />}
+    </> 
   );
 };
 
