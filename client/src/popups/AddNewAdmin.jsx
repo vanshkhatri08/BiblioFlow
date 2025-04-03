@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import placeHolder from "../assets/placeholder.jpg";
 import closeIcon from "../assets/close-square.png";
 import keyIcon from "../assets/key.png";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewAdmin } from "../store/slices/userSlice";
- import { toggleAddNewAdminPopup } from "../store/slices/popUpSlice";
+import { toggleAddNewAdminPopup } from "../store/slices/popUpSlice";
 
 
 const AddNewAdmin = () => {
@@ -96,29 +96,32 @@ const AddNewAdmin = () => {
 
       <div>
         <label className="block text-gray-900 font-medium">Password</label>
-        <input type="text" 
-        value={password}
-         onChange={(e) => setPassword(e.target.value)}
+        <input 
+          type="text" 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="Admin's Password" 
-        className="w-full px-4 py-2 border border-gray-300 rounded md" 
-      </div>
-      {/*button*/}
-       
-      <div className ="flex justify-end space-x-4">
-      <button type="button" 
-      onClick {() => dispatch (toggleAddNewAdminPopup())} 
-      className = "px-4 py-2 bg-gray-200 rounded-md hover: bg-gray-300 ">
-      Close
-      </button>
-      <button type="submit"
-      disabled={loading} 
-      onClick {() => dispatch (toggleAddNewAdminPopup())} 
-      className = "px-4 py-2 bg-black text-white rounded-md hover: bg-gray-800 ">
-      Add
-      </button>
+          className="w-full px-4 py-2 border border-gray-300 rounded-md" 
+        />
       </div>
       
-
+      <div className="flex justify-end space-x-4">
+        <button 
+          type="button" 
+          onClick={() => dispatch(toggleAddNewAdminPopup())} 
+          className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+        >
+          Close
+        </button>
+        
+        <button 
+          type="submit"
+          disabled={loading} 
+          className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800"
+        >
+          Add
+        </button>
+      </div>
     </form>
   </div>
   </div>

@@ -12,9 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, resetAuthSlice } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
 import { BookAIcon, UsersIcon } from "lucide-react";
-import { toggleAddNewAdminPopup, toggleSettingPopup	 } from "../store/slices/popUpSlice";
-import AddNewAdmin from "../components/AddNewAdmin";
-import SettingPopup from "../components/SettingPopup";
+import { toggleAddNewAdminPopup, toggleSettingPopup } from "../store/slices/popUpSlice";
+import AddNewAdmin from "../popups/AddNewAdmin";
+import SettingPopup from "../popups/SettingPopup";
 
 const SideBar = ({ isSidebarOpen, setIsSidebarOpen, setSelectedComponent }) => {
 const dispatch = useDispatch();
