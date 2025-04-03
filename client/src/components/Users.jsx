@@ -9,17 +9,17 @@ const Users = () => {
     const date = new Date(timeStamp);
     const formatedDate = '${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear())} ';
     const formattedTime = '${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}';
-    const result =  `${formatDate} ${formattedTime}`;
+    const result =  `${formateDate} ${formattedTime}`;
     return result
     
   };
 
 
 
- cont result =  formatDate("");
+ const result =  formatDate("");
 
   return <>
-    <main className = "relative flex-1 p-6 pt-28">
+    <main className = "relative flex-1 p-6 pt-28"> ;
       <Header />
       {/*Sub Header */}
       <header className = "flex flex-col gap-3 md:flex-row md:justify-between md:items-center">
