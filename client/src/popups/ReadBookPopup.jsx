@@ -1,6 +1,7 @@
 import React from 'react'
 import { toggleReadBookPopup } from '../store/slices/popUpSlice';
 
+<<<<<<< HEAD
 const ReadBookPopup = () => {
   const dispatch = useDispatch();
   return (
@@ -53,6 +54,13 @@ const ReadBookPopup = () => {
         </div>
 
       </div>
+=======
+const ReadBookPopup = (bookId) => {
+  return (
+    <div>
+      <h3>Read Book</h3>
+      <p>Book ID: {book._id}</p>
+>>>>>>> 5665696b8c9e68b1288f3d49c1c3d7ed7b9f3a36
     </div>
   )
 }

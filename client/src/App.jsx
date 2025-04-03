@@ -10,12 +10,20 @@ import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./store/slices/authSlice";
 import { fetchAllUsers } from "./store/slices/userSlice";
+import { fetchUsersBorrowedBooks } from "./store/slices/borrowSlice";
 
 const App = () => {
   const{ user,isAuthenticated} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect (() => {
     dispatch(getUser());
+    dispatch(fetchAllBooks());
+    
+    if(isAuthenticated && user.role === "User"){
+      // console.log("THE LOGGED IN USER IS ADMIN");
+      dispatch(fetchUsersBorrowedBooks());
+    }
+
     if(isAuthenticated && user.role === "Admin"){
       // console.log("THE LOGGED IN USER IS ADMIN");
       dispatch(fetchAllUsers());

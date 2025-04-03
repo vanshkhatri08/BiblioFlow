@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 import {useDispatch} from "react-redux"
 import {reactBorrowBook} from "../store/slices/borrowSlice"
 const RecordBookPopup = () => {
@@ -37,6 +38,14 @@ const RecordBookPopup = () => {
           }
       </div>
       </div>
+=======
+
+const RecordBookPopup = (bookId) => {
+  return (
+    <div>
+      <h3>Record Book</h3>
+      <p>Book ID: {bookId}</p>
+>>>>>>> 5665696b8c9e68b1288f3d49c1c3d7ed7b9f3a36
     </div>
   )
 }
