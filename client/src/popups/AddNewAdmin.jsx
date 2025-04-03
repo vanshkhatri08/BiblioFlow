@@ -41,7 +41,7 @@ const AddNewAdmin = () => {
 
   return (
   <>
-  <h1 className="fixed inset-0 bg-balck bg-opacity-50 flex items-center justify-center z-50">
+  <div className="fixed inset-0 bg-balck bg-opacity-50 flex items-center justify-center z-50">
   <div className="w-full bg-white rounded-lg shadow-lg md:w-1/3">
   <div className="p-6">
     <header className="flex justify-between items-center mb-7 pb-5 border-b-[1px] border-black">
@@ -80,7 +80,7 @@ const AddNewAdmin = () => {
         value={name}
          onChange={(e) => setName(e.target.value)}
           placeholder="Admin's Name" 
-        className="w-full px-4 py-2 border border-gray-300 rounded-md  focus:ring-2 focus:ring-black" 
+        className="w-full px-4 py-2 border border-gray-300 rounded-md " 
         />
       </div>
 
@@ -90,7 +90,7 @@ const AddNewAdmin = () => {
         value={email}
          onChange={(e) => setEmail(e.target.value)}
           placeholder="Admin's Email" 
-        className="w-full px-4 py-2 border border-gray-300 rounded-md  focus:ring-2 focus:ring-black" 
+        className="w-full px-4 py-2 border border-gray-300 rounded-md  " 
         />
       </div>
 
@@ -100,13 +100,29 @@ const AddNewAdmin = () => {
         value={password}
          onChange={(e) => setPassword(e.target.value)}
           placeholder="Admin's Password" 
-        className="w-full px-4 py-2 border border-gray-300 rounded-md  focus:ring-2 focus:ring-black" 
-        />
+        className="w-full px-4 py-2 border border-gray-300 rounded md" 
       </div>
+      {/*button*/}
+       
+      <div className ="flex justify-end space-x-4">
+      <button type="button" 
+      onClick {() => dispatch (toggleAddNewAdminPopup())} 
+      className = "px-4 py-2 bg-gray-200 rounded-md hover: bg-gray-300 ">
+      Close
+      </button>
+      <button type="submit"
+      disabled={loading} 
+      onClick {() => dispatch (toggleAddNewAdminPopup())} 
+      className = "px-4 py-2 bg-black text-white rounded-md hover: bg-gray-800 ">
+      Add
+      </button>
+      </div>
+      
+
     </form>
   </div>
   </div>
-  </h1>
+  </div>
   </>
   );
 };
