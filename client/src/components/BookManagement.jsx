@@ -6,7 +6,7 @@ import {
   toggleRecordBookPopup 
 } from "../store/slices/popUpSlice";
 import { toast } from "react-toastify";
-import { fetchAllBooks, resetBookSlice } from "../store/slices/bookSlice";
+import { fetchAllBooks, resetBookSlice } from "../store/slices/bookSlice.jsx";
 import { 
   fetchUsersBorrowedBooks, 
   resetBorrowSlice  

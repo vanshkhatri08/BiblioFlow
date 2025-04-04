@@ -4,8 +4,8 @@ import { FaSquareCheck } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import {toggleReturnBookPopup} from "../store/slices/popUpSlice";
 import {toast} from "react-toastify";
-import {fetchAllbooks , resetBookSlice} from "../store/slices/bookSlice";
-import { fetchAllBorrowedBooks , resetBookSLice } from "../store/slices/borrowSlice";
+import {fetchAllbooks , resetBookSlice} from "../store/slices/bookSlice.jsx";
+import { fetchAllBorrowedBooks , resetBorrowSlice } from "../store/slices/borrowSlice.jsx";
 import returnBookPopup from  "../popups/ReturnBookPopup";
 const Catalog = () => {
   const dispatch = useDispatch();
@@ -27,9 +27,9 @@ const Catalog = () => {
   };
   const formatDate = (timeStamp) => {
     const date = new Date(timeStamp);
-   
-    return ${String(date.getDate()).padStart(2, "0")}-${String(
-      date.getMonth() + 1 ).padStart(2, "0")}-${date.getFullYear()}`;
+    return `${String(date.getDate()).padStart(2, "0")}-${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")}-${date.getFullYear()}`;
   };
 
   const currentDate = new Date();
@@ -46,30 +46,29 @@ const Catalog = () => {
   }
   );
 
-  const booksToDisplay  = 
-    filter === "borrowed" ? borrowedBooks : overdueBooks;
-     const [email, setEmail] = useState("");
-     const[borrowedBookId , setBorrowedBookId] = useState("");
-     const openturnBookPopup = (email , bookId) => {
-      setEmail(email);
-      setBorrowedBookId(id);
-      dispatch(toggleReturnBookPopup());
-       
-      useEffect(() => {
-        if(message){
-          toast.success(message);
-          dispatch(fetchAllBorrowedBooks());
-          dispatch(fetchAllbooks());
-          dispatch(resetBorrowSlice());
-          dispatch(resetBookSlice());
-        }
-        if(error){
-          toast.error(error);
-          dispatch(resetBorrowSlice());
-        } 
-      },[dispatch, loading, error]);
+  const booksToDisplay = filter === "borrowed" ? borrowedBooks : overdueBooks;
+  const [email, setEmail] = useState("");
+  const [borrowedBookId, setBorrowedBookId] = useState("");
+  
+  const openReturnBookPopup = (email, bookId) => {
+    setEmail(email);
+    setBorrowedBookId(bookId);
+    dispatch(toggleReturnBookPopup());
+  };
 
-
+  useEffect(() => {
+    if(message) {
+      toast.success(message);
+      dispatch(fetchAllBorrowedBooks());
+      dispatch(fetchAllbooks());
+      dispatch(resetBorrowSlice());
+      dispatch(resetBookSlice());
+    }
+    if(error) {
+      toast.error(error);
+      dispatch(resetBorrowSlice());
+    } 
+  }, [dispatch, loading, error, message]);
 
   return <>
   <main className="relative flex-1 p-6 pt-28">
@@ -104,7 +103,7 @@ const Catalog = () => {
         </header> 
 
         {
-          bookToDisplay.length && bookToDisplay.length > 0 ? (
+          booksToDisplay?.length > 0 ? (
             <div className="mt-6 overflow-auto bg-white rounded-md shadow-lg">
               <table className="min-w-full border-collapse">
                 <thead>
@@ -127,7 +126,7 @@ const Catalog = () => {
                   >
                     <td className="px-4 py-2">{index + 1}</td>
                     <td className="px-4 py-2">{book?.user.name}</td>
-                    <td className="px-4 py-2">{formatDate(book?.user.email}</td>
+                    <td className="px-4 py-2">{formatDate(book?.user.email)}</td>
                     <td className="px-4 py-2">{formatDate(book.price)}</td>
                     <td className="px-4 py-2">
                       {formatDate(book.duedate)}
@@ -136,9 +135,14 @@ const Catalog = () => {
                       {formatDateAndTime(book.createdDate)}
                       </td>
                     <td className="px-4 py-2">
-                      book.returnDate ? ( FaSquareCheck className="w-6 h-6" /> ) : (
-                      <PiKeyReturnBold className="w-6 h-6" onClick={() => openReturnBookPopup(book?.user.email , book.id)}/>
-
+                      {book.returnDate ? (
+                        <FaSquareCheck className="w-6 h-6" />
+                      ) : (
+                        <PiKeyReturnBold 
+                          className="w-6 h-6" 
+                          onClick={() => openReturnBookPopup(book?.user.email, book.id)}
+                        />
+                      )}
                     </td> 
                   </tr>
                 ))}
@@ -152,7 +156,9 @@ const Catalog = () => {
                 </h3>
           )}
          </main>
-         {returnBookPopup && <ReturnBookPopup />}
+         {returnBookPopup && (
+            <ReturnBookPopup  bookId={borrowedBookId} email={email}/>
+         )}
   </>;
 };
 

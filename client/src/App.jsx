@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./store/slices/authSlice";
 import { fetchAllUsers } from "./store/slices/userSlice";
-import { fetchUsersBorrowedBooks } from "./store/slices/borrowSlice";
+import { fetchUsersBorrowedBooks } from "./store/slices/borrowSlice.jsx";
 
 const App = () => {
   const{ user,isAuthenticated} = useSelector((state) => state.auth);

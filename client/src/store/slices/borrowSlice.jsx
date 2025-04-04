@@ -102,8 +102,8 @@ export const fetchAllBorrowedBooks = () => async (dispatch) => {
 
 export const recordBook = (email, id) => async (dispatch) => {
     dispatch(borrowSlice.actions.recordBookRequest());
-
-    await axios.post(
+    try {
+        const res = await axios.post(
             "http://localhost:4000/api/v1/borrow",
             { email, id },
             {
@@ -112,7 +112,7 @@ export const recordBook = (email, id) => async (dispatch) => {
                     "Content-Type": "application/json"
                 },
             }
-        ).then((res) => {
+        );
         dispatch(borrowSlice.actions.recordBookSuccess(res.data.message));
         dispatch(toggleRecordBookPopup());
     } catch (err) {
