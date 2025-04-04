@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const bookSlice = createSlice({
     name: "book",
@@ -59,14 +60,17 @@ export const fetchAllBooks = () => async (dispatch) => {
 
 export const addBook = (data) => async (dispatch) => {
     dispatch(bookSlice.actions.addBookRequest());
-    try {
-        const res = await axios.post("http://localhost:4000/api/v1/book/add", data, {
+     await axios.post("http://localhost:4000/api/v1/book/add", data, {
             withCredentials: true,
             headers: {
                 "Content-Type": "multipart/form-data",
             },
-        });
-        dispatch(bookSlice.actions.addBookSuccess(res.data.message));
+        }).then((res) => {
+
+        (bookSlice.actions.addBookSuccess(res.data.message));
+    toast .success(res.data.message);
+        dispatch(toggleAddBookPopup());
+        dispatch(fetchAllBooks());
     } catch (err) {
         dispatch(bookSlice.actions.addBookFailed(err.response?.data?.message));
     }

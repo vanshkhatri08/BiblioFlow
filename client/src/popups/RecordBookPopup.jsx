@@ -1,7 +1,7 @@
 import React from 'react'
-<<<<<<< HEAD
 import {useDispatch} from "react-redux"
 import {reactBorrowBook} from "../store/slices/borrowSlice"
+import {toggleRecordBookPopup} from "../store/slices/popUpSlice"
 const RecordBookPopup = () => {
   const dispatch = usDispatch()
   const HandleRecordBook = (e)=>{
@@ -22,15 +22,23 @@ const RecordBookPopup = () => {
             <input
              type ="email"
               value={email}
-               onChange={(e)=> createSerializableStateInvariantMiddleware(e.ytarget.value)} 
+               onChange={(e)=> setEmail(e.ytarget.value)} 
                placeholder ="Borrower's Email"
                className = "w-full px-4 py-2 border-black rounded-md "
+               required
                />
 
           </div>
           <div className="flex-justify-end space-x-4">
-            <button className ="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300" type ="button" onClick={}>Close</button>
-            <button>Record</button>
+            <button
+             className ="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+              type ="button"
+               onClick={() => { dispatch(toggleRecordBookPopup());
+            }}
+            >
+            Close
+            </button>
+            <button type "submit" className ="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800">Record</button>
           </div>
 
           </form>
@@ -38,14 +46,14 @@ const RecordBookPopup = () => {
           }
       </div>
       </div>
-=======
+
 
 const RecordBookPopup = (bookId) => {
   return (
     <div>
       <h3>Record Book</h3>
       <p>Book ID: {bookId}</p>
->>>>>>> 5665696b8c9e68b1288f3d49c1c3d7ed7b9f3a36
+
     </div>
   )
 }

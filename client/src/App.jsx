@@ -27,6 +27,8 @@ const App = () => {
     if(isAuthenticated && user.role === "Admin"){
       // console.log("THE LOGGED IN USER IS ADMIN");
       dispatch(fetchAllUsers());
+      dispatch(fetchAllBorrowedBooks());
+
     }
   },[]);
  return <Router>
